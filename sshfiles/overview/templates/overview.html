@@ -34,14 +34,12 @@
             <thead>
                 <tr>
                     <th class="mdl-data-table__cell--non-numeric">Filename</th>
-                    <th class="mdl-data-table__cell--non-numeric">Path</th>
                 </tr>
             </thead>
             <tbody>
                 {%- for row in files %}
                 <tr>
-                    <td class="mdl-data-table__cell--non-numeric">{{ row[0] }}</td>
-                    <td class="mdl-data-table__cell--non-numeric">{{ row[1] }}</td>
+                    <td class="mdl-data-table__cell--non-numeric"><a href="{{ row[1] }}">{{ row[0] }}</a></td>
                 </tr>
                 {%- endfor %}
             </tbody>
