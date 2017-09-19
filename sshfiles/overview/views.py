@@ -2,6 +2,7 @@ import os
 import json
 import fcntl
 from flask import Blueprint, render_template, request
+from sshfiles.util import indexing
 
 overview_blueprint = Blueprint('overview', __name__, static_folder='static',
                                static_url_path='/overview/static',
@@ -21,7 +22,14 @@ def overview_get():
 def overview_post():
     """Update the file index."""
     path = request.form['path']
+    # Save the potentially new path
     with open('config.json', 'w') as f:
         fcntl.flock(f, fcntl.LOCK_EX)
         json.dump({'path': path}, f)
-    return render_template('overview.html', path=path)
+    # Get videos
+    videos = indexing.get_videos(path)
+    # Dump video index for later use
+    with open('index.json', 'w') as f:
+        fcntl.flock(f, fcntl.LOCK_EX)
+        json.dump(videos, f)
+    return render_template('overview.html', path=path, files=videos)
