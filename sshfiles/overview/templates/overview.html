@@ -39,12 +39,16 @@
             <tbody>
                 {%- for row in files %}
                 <tr>
-                    <td class="mdl-data-table__cell--non-numeric"><a href="{{ row[1] }}">{{ row[0] }}</a></td>
+                    <td class="mdl-data-table__cell--non-numeric"><a class="clicker" data-clipboard-text="{{ row[1] }}" href="javascript:void(0)">{{ row[0] }}</a></td>
                 </tr>
                 {%- endfor %}
             </tbody>
         </table>
         {%- endif %}
         <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+        <script src="https://cdn.rawgit.com/zenorocha/clipboard.js/v1.7.1/dist/clipboard.min.js"></script>
+        <script>
+        new Clipboard('.clicker');
+        </script>
     </body>
 </html>
