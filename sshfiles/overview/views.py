@@ -23,6 +23,9 @@ def overview_get():
         with open('index.json', 'r') as f:
             fcntl.flock(f, fcntl.LOCK_EX)
             args['files'] = json.load(f)
+            indexing.make_urls(
+                args['files'], args['conf']['username'], args['conf']['ip']
+            )
     return render_template('overview.html', **args)
 
 @overview_blueprint.route('/', methods=['POST'])
@@ -43,4 +46,5 @@ def overview_post():
     with open('index.json', 'w') as f:
         fcntl.flock(f, fcntl.LOCK_EX)
         json.dump(videos, f)
+    indexing.make_urls(videos, conf['username'], conf['ip'])
     return render_template('overview.html', conf=conf, files=videos)

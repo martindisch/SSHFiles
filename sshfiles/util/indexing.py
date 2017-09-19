@@ -1,7 +1,7 @@
 import os
 
 def get_videos(filepath):
-    """Build a dictionary of names and absolute paths of videos in `filepath`.
+    """Build a list of names and absolute paths of videos in `filepath`.
 
     Parameters
     ----------
@@ -27,3 +27,25 @@ def get_videos(filepath):
         )
     videos.sort(key=lambda x: x[0].lower())
     return videos
+
+def make_urls(files, username, ip):
+    """Replace the absolute paths in the file list with SFTP URLs.
+
+    This will happen in-place, meaning that the given list of lists will be
+    modified directly to save memory.
+
+    Parameters
+    ----------
+    files : list
+        List of lists with filename and absolute path for every file
+    username : str
+        The username to use for the URL
+    ip : str
+        The address to user for the URL
+    """
+    # Build prefix once
+    prefix = "sftp://{}@{}:".format(username, ip)
+    # Go through all sublists
+    for i in range(len(files)):
+        # Modify the file path directly
+        files[i][1] = prefix + files[i][1]
