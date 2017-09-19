@@ -10,7 +10,7 @@
         <div class="mdl-card mdl-shadow--4dp card-centered">
             <div class="mdl-card__supporting-text">
                 You only need to update the index when files have changed. Enter the path to the directory you want searched.
-                <form action="/config" method="POST">
+                <form action="{{ url_for('overview.overview_post') }}" method="POST">
                     <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                         <input class="mdl-textfield__input" type="text" id="path" name="path" required{% if path %} value="{{ path }}"{% endif %}>
                         <label class="mdl-textfield__label" for="path">Path</label>
