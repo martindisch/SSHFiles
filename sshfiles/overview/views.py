@@ -11,12 +11,20 @@ overview_blueprint = Blueprint('overview', __name__, static_folder='static',
 @overview_blueprint.route('/', methods=['GET'])
 def overview_get():
     """Show the overview page."""
+    # kvargs for render_template
+    args = {}
+    # Attempt reading path
     if os.path.isfile('config.json'):
         with open('config.json', 'r') as f:
             fcntl.flock(f, fcntl.LOCK_EX)
             kv = json.load(f)
-            return render_template('overview.html', path=kv['path'])
-    return render_template('overview.html')
+            args['path'] = kv['path']
+    # Attempt reading file index
+    if os.path.isfile('index.json'):
+        with open('index.json', 'r') as f:
+            fcntl.flock(f, fcntl.LOCK_EX)
+            args['files'] = json.load(f)
+    return render_template('overview.html', **args)
 
 @overview_blueprint.route('/', methods=['POST'])
 def overview_post():
