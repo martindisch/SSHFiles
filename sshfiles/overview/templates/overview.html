@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>File index</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="{{ url_for('overview.static', filename='style.css') }}">
+        <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
+    </head>
+    <body>
+        <div class="mdl-card mdl-shadow--4dp card-centered">
+            <div class="mdl-card__supporting-text">
+                You only need to update the index when files have changed. Enter the path to the directory you want searched.
+                <form action="/config" method="POST">
+                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                        <input class="mdl-textfield__input" type="text" id="path" name="path" required{% if path %} value="{{ path }}"{% endif %}>
+                        <label class="mdl-textfield__label" for="path">Path</label>
+                    </div>
+                    <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored" type="submit">
+                    Update index
+                    </button>
+                </form>
+            </div>
+        </div>
+        <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+    </body>
+</html>

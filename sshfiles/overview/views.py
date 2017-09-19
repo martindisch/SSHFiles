@@ -6,4 +6,4 @@ overview_blueprint = Blueprint('overview', __name__, static_folder='static',
 
 @overview_blueprint.route('/', methods=['GET'])
 def overview_get():
-    return "OK"
+    return render_template('overview.html')
