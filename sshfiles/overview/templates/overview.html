@@ -11,15 +11,15 @@
             <div class="mdl-card__supporting-text">
                 You only need to update the index when files have changed. This can take several seconds.
                 <form action="{{ url_for('overview.overview_post') }}" method="POST">
-                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label{% if conf %} is-dirty{% endif %}">
                         <input class="mdl-textfield__input" type="text" id="path" name="path" required{% if conf %} value="{{ conf.path }}"{% endif %}>
                         <label class="mdl-textfield__label" for="path">Path</label>
                     </div>
-                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label{% if conf %} is-dirty{% endif %}">
                         <input class="mdl-textfield__input" type="text" id="username" name="username" required{% if conf %} value="{{ conf.username }}"{% endif %}>
                         <label class="mdl-textfield__label" for="username">Username (for SSH)</label>
                     </div>
-                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label{% if conf %} is-dirty{% endif %}">
                         <input class="mdl-textfield__input" type="text" id="ip" name="ip" required{% if conf %} value="{{ conf.ip }}"{% endif %}>
                         <label class="mdl-textfield__label" for="username">IP address (for SSH)</label>
                     </div>
