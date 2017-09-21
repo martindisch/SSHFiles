@@ -2,6 +2,7 @@ import os
 import json
 import fcntl
 
+
 def get_videos(filepath):
     """Build a list of names and absolute paths of videos in `filepath`.
 
@@ -25,10 +26,11 @@ def get_videos(filepath):
     for root, subdirs, files in os.walk(filepath):
         videos.extend(
             ([f, os.path.join(os.path.abspath(root), f)] for f in files if
-            f.split('.')[-1] in video_exts)
+             f.split('.')[-1] in video_exts)
         )
     videos.sort(key=lambda x: x[0].lower())
     return videos
+
 
 def make_urls(files, username, ip):
     """Replace the absolute paths in the file list with SFTP URLs.
@@ -51,6 +53,7 @@ def make_urls(files, username, ip):
     for i in range(len(files)):
         # Modify the file path directly
         files[i][1] = prefix + files[i][1]
+
 
 if __name__ == '__main__':
     # Attempt reading settings

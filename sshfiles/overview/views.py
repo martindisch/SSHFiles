@@ -8,6 +8,7 @@ overview_blueprint = Blueprint('overview', __name__, static_folder='static',
                                static_url_path='/overview/static',
                                template_folder='templates')
 
+
 @overview_blueprint.route('/', methods=['GET'])
 def overview_get():
     """Show the overview page."""
@@ -27,6 +28,7 @@ def overview_get():
                 args['files'], args['conf']['username'], args['conf']['ip']
             )
     return render_template('overview.html', **args)
+
 
 @overview_blueprint.route('/', methods=['POST'])
 def overview_post():
