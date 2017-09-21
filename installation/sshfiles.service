@@ -1,0 +1,13 @@
+[Unit]
+Description=Gunicorn instance to serve sshfiles
+After=network.target
+
+[Service]
+User=pi
+Group=www-data
+WorkingDirectory=/home/pi/SSHFiles
+Environment="PATH=/home/pi/SSHFiles/venv/bin:/usr/bin"
+ExecStart=/home/pi/SSHFiles/venv/bin/gunicorn --workers 3 --bind unix:sshfiles.sock -m 007 wsgi:app
+
+[Install]
+WantedBy=multi-user.target
