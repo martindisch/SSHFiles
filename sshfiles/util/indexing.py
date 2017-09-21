@@ -1,4 +1,6 @@
 import os
+import json
+import fcntl
 
 def get_videos(filepath):
     """Build a list of names and absolute paths of videos in `filepath`.
@@ -49,3 +51,16 @@ def make_urls(files, username, ip):
     for i in range(len(files)):
         # Modify the file path directly
         files[i][1] = prefix + files[i][1]
+
+if __name__ == '__main__':
+    # Attempt reading settings
+    if os.path.isfile('config.json'):
+        with open('config.json', 'r') as f:
+            fcntl.flock(f, fcntl.LOCK_EX)
+            conf = json.load(f)
+        # Get videos
+        videos = get_videos(conf['path'])
+        # Dump video index for later use
+        with open('index.json', 'w') as f:
+            fcntl.flock(f, fcntl.LOCK_EX)
+            json.dump(videos, f)
