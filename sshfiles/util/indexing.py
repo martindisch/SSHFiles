@@ -3,13 +3,15 @@ import json
 import fcntl
 
 
-def get_videos(filepath):
+def get_videos(filepath, exclude_backup=True):
     """Build a list of names and absolute paths of videos in `filepath`.
 
     Parameters
     ----------
     filepath : str
         The directory to recursively search for video files
+    exclude_backup : bool
+        If true, exclude any directory containing 'backup' in its name
 
     Returns
     -------
@@ -24,10 +26,11 @@ def get_videos(filepath):
     ]
     videos = []
     for root, subdirs, files in os.walk(filepath):
-        videos.extend(
-            ([f, os.path.join(os.path.abspath(root), f)] for f in files if
-             f.split('.')[-1] in video_exts)
-        )
+        if exclude_backup and not "backup" in root.lower():
+            videos.extend(
+                ([f, os.path.join(os.path.abspath(root), f)] for f in files if
+                 f.split('.')[-1] in video_exts)
+            )
     videos.sort(key=lambda x: x[0].lower())
     return videos
 
