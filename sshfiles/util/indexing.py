@@ -6,6 +6,8 @@ import fcntl
 def get_videos(filepath, exclude_backup=True):
     """Build a list of names and absolute paths of videos in `filepath`.
 
+    This will follow symbolic links.
+
     Parameters
     ----------
     filepath : str
@@ -25,7 +27,7 @@ def get_videos(filepath, exclude_backup=True):
         "webm", "wmv", "yuv"
     ]
     videos = []
-    for root, subdirs, files in os.walk(filepath):
+    for root, subdirs, files in os.walk(filepath, followlinks=True):
         if exclude_backup and not "backup" in root.lower():
             videos.extend(
                 ([f, os.path.join(os.path.abspath(root), f)] for f in files if
